@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 export default function Navbar() {
   return (
     <>
@@ -27,7 +27,7 @@ export default function Navbar() {
                 <a href="#" className="text-white hover:bg-gray-700 px-3 py-2 rounded">Cart</a>
     
                    <div id="auth-links" className="flex items-center space-x-4">
-                        <a href="#" id="login-link" className="text-white hover:bg-gray-700 px-3 py-2 rounded">Login</a>
+                        <Link to='/login' id="login-link" className="text-white hover:bg-gray-700 px-3 py-2 rounded">Login</Link>
                         <a href="#" id="signup-link" className="text-white hover:bg-gray-700 px-3 py-2 rounded">Sign Up</a>
                     </div>
                     <div id="logout-link" className="flex items-center space-x-4 ">

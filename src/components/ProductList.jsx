@@ -1,6 +1,6 @@
 
 import React from 'react'
-import products from '../mokedata/Products'
+import products from '../utils/Products'
 import Card from './Card'
 
 
