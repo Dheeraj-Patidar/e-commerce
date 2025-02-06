@@ -4,6 +4,7 @@ const users=[
         "name": "Alice Johnson",
         "role": "buyer",
         "email": "alice@example.com",
+        "password":"alice",
         "cart": [
           { "productId": 2, "quantity": 1 },
           { "productId": 10, "quantity": 2 }
@@ -15,6 +16,7 @@ const users=[
         "name": "Bob Smith",
         "role": "seller",
         "email": "bob@example.com",
+        "password":"bob",
         "cart": [],
         "wishlist": []
       },
@@ -23,6 +25,7 @@ const users=[
         "name": "Carol Admin",
         "role": "admin",
         "email": "carol.admin@example.com",
+        "password":"carol",
         "cart": [],
         "wishlist": []
       }
