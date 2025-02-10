@@ -1,12 +1,21 @@
 import React from 'react'
-import {useCart} from '../contexts/CartContext'
+// import {useCart} from '../contexts/CartContext'
+import { addToCart } from '../redux/CartSlice';
+import {useDispatch,useSelector} from 'react-redux'
+import { addToWishList } from '../redux/WishListSlice'
 
 export default function Card({ product }) {
    
-    const {addToCart}=useCart();
+    // const {addToCart}=useCart();
+    const dispatch=useDispatch();
 
    const handleAddToCart=()=>{
-    addToCart(product);
+    // addToCart(product);
+    dispatch(addToCart(product));
+   }
+
+   const handleAddToWishList=()=>{
+    dispatch(addToWishList(product))
    }
    
     return (
@@ -29,12 +38,15 @@ export default function Card({ product }) {
                         <p className="text-lg font-bold text-gray-900 mt-4">Rs {product.price}</p>
 
                         <div className="mt-6 flex space-x-4">
+                            
                             <button onClick={handleAddToCart} className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 Add to Cart
                             </button>
-                            <button className="w-full px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                            
+                            <button onClick={handleAddToWishList}  className="w-full px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
                                 Wish List
                             </button>
+                            
                         </div>
                     </div>
                 </div>

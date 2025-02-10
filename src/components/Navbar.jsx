@@ -1,12 +1,24 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {useAuth} from '../contexts/AuthContext';
-import { useCart } from '../contexts/CartContext';
+// import {useAuth} from '../contexts/AuthContext';
+import { useDispatch ,useSelector} from 'react-redux';
+import { logout } from '../redux/AuthSlice';
+// import { useCart } from '../contexts/CartContext';
+
 export default function Navbar() {
   
-    const {logout,isAuthenticated,user}=useAuth();
-    const {cart}=useCart();
+    // const {logout,isAuthenticated,user}=useAuth();
+    const dispatch=useDispatch()
+    const cart=useSelector((state)=>state.cart.cart);
+    const wishlist=useSelector((state)=>state.wishlist.wishlist);
+    const isAuthenticated=useSelector((state)=>state.auth.isAuthenticated);
 
+    // const {cart}=useCart();
+
+
+    const handleLogout = () => {
+        dispatch(logout());
+    };
   
     return (
     <>
@@ -37,17 +49,20 @@ export default function Navbar() {
                  
                 <Link to='/cart' className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Cart {cart.length}</Link>
                 
-                {!isAuthenticated?(
+                <Link to='/wishlist' className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">WishList {wishlist.length}</Link>
+                
+
+                {!isAuthenticated ?(
                    <div id="auth-links" className="flex items-center space-x-4">
                         <Link to='/login' id="login-link" className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Login</Link>
                         <a href="#" id="signup-link" className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Sign Up</a>
                     </div>
-                ):
-                (
+                  ): 
+                 (
                     <div id="logout-link" className="flex items-center space-x-4 ">
-                       <Link to='/' className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded" onClick={logout}>Logout</Link>
+                       <Link to='/' className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded" onClick={handleLogout}>Logout</Link>
                     </div>
-                )}
+                  )} 
                 </div>
     
                 <div className="md:hidden flex items-center">

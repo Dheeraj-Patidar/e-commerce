@@ -1,11 +1,16 @@
 import React from 'react'
-import { useCart } from '../contexts/CartContext'
+// import { useCart } from '../contexts/CartContext'
+import { useDispatch ,useSelector } from 'react-redux';
+import { removeFromCart ,updateQuantity } from '../redux/CartSlice';
 
 export default function CartPage() {
-    const { cart, removeFromCart, updateQuantity } = useCart();
+    // const { cart, removeFromCart, updateQuantity } = useCart();
+    const cart=useSelector((state)=>state.cart.cart);
+    const dispatch=useDispatch();
 
     const handleQuantityChange = (e, productId) => {
-        updateQuantity(productId, parseInt(e.target.value, 10));
+        const newQuantity = parseInt(e.target.value, 10);
+        dispatch(updateQuantity({ productid: productId, quantity: newQuantity }));
     };
 
     const calculateTotal = () => {
@@ -53,7 +58,7 @@ export default function CartPage() {
                                         <td className="py-4 px-6 text-right text-gray-800">Rs {item.price * item.quantity}</td>
                                         <td className="py-4 px-6 text-center">
                                             <button
-                                                onClick={() => removeFromCart(item.id)}
+                                                onClick={() => dispatch(removeFromCart(item.id))}
                                                 className="bg-red-500 text-white p-2 rounded-2xl hover:bg-red-600 hover:cursor-pointer  "
                                             >
                                                 Remove

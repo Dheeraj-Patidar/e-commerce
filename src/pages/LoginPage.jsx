@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/AuthSlice';
 import { useNavigate } from 'react-router-dom';
-import users from '../utils/Users'; 
+import users from '../utils/Users';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -13,13 +14,16 @@ export default function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = users.find(user => user.email === email && user.password === password);
+    const user = users.find(
+      (user) => user.email.toLowerCase() === email.toLowerCase() && user.password === password
+    );
 
     if (user) {
-      login({ email });
+      dispatch(login({ email })); 
       setError('');
       
       if (user.role === 'buyer') {
+        
         navigate('/buyer');
       } else if (user.role === 'seller') {
         navigate('/seller');
