@@ -7,8 +7,8 @@ export default function WishListPage() {
     const dispatch=useDispatch()
     const wishlist=useSelector((state)=>state.wishlist.wishlist)
    
-    const handleAddToCart=(id)=>{
-        dispatch(addToCartFromWishList(id))
+    const handleAddToCart=(product)=>{
+        dispatch(addToCartFromWishList(product))
     }
 
     const handleRemoveFromWishList=(id)=>{
@@ -54,7 +54,7 @@ export default function WishListPage() {
                                             </button>
 
                                             <button
-                                                onClick={()=>handleAddToCart(item.id)}
+                                                onClick={()=>handleAddToCart(item)}
                                                 className=" px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 hover:cursor-pointer">
                                                 Add To Cart
                                             </button>

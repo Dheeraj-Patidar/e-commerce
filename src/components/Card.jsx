@@ -21,7 +21,7 @@ export default function Card({ product }) {
     return (
         <>
 
-            <div className=''>
+            <div className='flex items-center justify-center'>
                 <div className="max-w-sm mb-10  rounded overflow-hidden  transition duration-300 ease-in-out shadow-lg bg-white hover:shadow-black transform hover:scale-105">
 
                     <img className="w-full h-100 object-cover" src={product.image} alt="Card image" />

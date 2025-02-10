@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 // import {useAuth} from '../contexts/AuthContext';
 import { useDispatch ,useSelector} from 'react-redux';
 import { logout } from '../redux/AuthSlice';
 // import { useCart } from '../contexts/CartContext';
+import {setSearch } from '../redux/SearchSlice';
 
 export default function Navbar() {
-  
+
+
     // const {logout,isAuthenticated,user}=useAuth();
     const dispatch=useDispatch()
+    const user=useSelector((state)=>state.auth.user)
+    const search=useSelector((state)=>state.search.search)
     const cart=useSelector((state)=>state.cart.cart);
     const wishlist=useSelector((state)=>state.wishlist.wishlist);
     const isAuthenticated=useSelector((state)=>state.auth.isAuthenticated);
@@ -20,6 +24,10 @@ export default function Navbar() {
         dispatch(logout());
     };
   
+    const handleSearchChange=(e)=>{
+        dispatch(setSearch(e.target.value)); 
+    }
+
     return (
     <>
     
@@ -29,19 +37,20 @@ export default function Navbar() {
                 <a href="#" className="text-red-800 text-5xl pr-20 font-bold">DP STORE</a>
     
                 <div className=" md:flex flex-1 mx-4 bg-amber-50 rounded-r-lg" >
-                    <input type="text" placeholder="Search..." className="w-full px-4 py-2 rounded-l-lg focus:outline-none" />
-                    <button className="bg-blue-600 text-2xl text-white px-4 py-2 rounded-r-lg hover:bg-blue-700">
+                    <input type="text" value={search} onChange={handleSearchChange}  placeholder="Search..." className="w-full px-4 py-2 rounded-l-lg focus:outline-none" />
+                    {/* <button className="bg-blue-600 text-2xl text-white px-4 py-2 rounded-r-lg hover:bg-blue-700">
                         Search
-                    </button>
+                    </button> */}
                 </div>
                 <div className=' md:flex space-x-6'>
-                <div className="hidden md:flex space-x-6">
-                    {/* {user?.role === 'buyer' ?(
-                        <Link to={'/buyer'} className="text-white hover:bg-gray-700 px-3 py-2 rounded">Home</Link>
-                    ):(<Link to={'/'} className="text-white hover:bg-gray-700 px-3 py-2 rounded">Home</Link>
+                <div className=" md:flex space-x-6">
+                    {user?.role === 'buyer' ?(
+                        <Link to={'/buyer'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home</Link>
+                    ):
+                    (<Link to={'/'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home</Link>
                     )
-                   } */}
-                <Link to={'/'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home</Link>
+                   }
+                {/* <Link to={'/'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home</Link> */}
                 </div>
     
                 

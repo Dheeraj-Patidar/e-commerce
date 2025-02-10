@@ -3,9 +3,10 @@ import React from 'react'
 import { useDispatch ,useSelector } from 'react-redux';
 import { removeFromCart ,updateQuantity } from '../redux/CartSlice';
 
-export default function CartPage() {
+ function CartPage() {
     // const { cart, removeFromCart, updateQuantity } = useCart();
     const cart=useSelector((state)=>state.cart.cart);
+
     const dispatch=useDispatch();
 
     const handleQuantityChange = (e, productId) => {
@@ -81,3 +82,5 @@ export default function CartPage() {
         </div>
     );
 }
+
+export default CartPage;
