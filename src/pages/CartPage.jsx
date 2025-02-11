@@ -3,6 +3,8 @@ import React from 'react'
 import { useDispatch ,useSelector } from 'react-redux';
 import { removeFromCart ,updateQuantity } from '../redux/CartSlice';
 
+
+
  function CartPage() {
     // const { cart, removeFromCart, updateQuantity } = useCart();
     const cart=useSelector((state)=>state.cart.cart);
@@ -59,7 +61,7 @@ import { removeFromCart ,updateQuantity } from '../redux/CartSlice';
                                         <td className="py-4 px-6 text-right text-gray-800">Rs {item.price * item.quantity}</td>
                                         <td className="py-4 px-6 text-center">
                                             <button
-                                                onClick={() => dispatch(removeFromCart(item.id))}
+                                                onClick={() => dispatch(removeFromCart(item.id)) }
                                                 className="bg-red-500 text-white p-2 rounded-2xl hover:bg-red-600 hover:cursor-pointer  "
                                             >
                                                 Remove

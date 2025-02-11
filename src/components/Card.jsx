@@ -3,6 +3,8 @@ import React from 'react'
 import { addToCart } from '../redux/CartSlice';
 import {useDispatch,useSelector} from 'react-redux'
 import { addToWishList } from '../redux/WishListSlice'
+import {toast} from "react-hot-toast"
+
 
 export default function Card({ product }) {
    
@@ -12,10 +14,12 @@ export default function Card({ product }) {
    const handleAddToCart=()=>{
     // addToCart(product);
     dispatch(addToCart(product));
+    toast.success("Product Added To Cart")
    }
 
    const handleAddToWishList=()=>{
     dispatch(addToWishList(product))
+    toast.success("Product Added To WishList")
    }
    
     return (

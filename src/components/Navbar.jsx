@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
+import { FaShoppingCart } from "react-icons/fa";
+import { MdHome } from "react-icons/md";
 // import {useAuth} from '../contexts/AuthContext';
 import { useDispatch ,useSelector} from 'react-redux';
 import { logout } from '../redux/AuthSlice';
 // import { useCart } from '../contexts/CartContext';
 import {setSearch } from '../redux/SearchSlice';
+import {toast} from "react-hot-toast"
+
 
 export default function Navbar() {
 
@@ -12,6 +16,7 @@ export default function Navbar() {
     // const {logout,isAuthenticated,user}=useAuth();
     const dispatch=useDispatch()
     const user=useSelector((state)=>state.auth.user)
+    
     const search=useSelector((state)=>state.search.search)
     const cart=useSelector((state)=>state.cart.cart);
     const wishlist=useSelector((state)=>state.wishlist.wishlist);
@@ -22,6 +27,7 @@ export default function Navbar() {
 
     const handleLogout = () => {
         dispatch(logout());
+        toast.error("Logout Successfully")
     };
   
     const handleSearchChange=(e)=>{
@@ -44,10 +50,16 @@ export default function Navbar() {
                 </div>
                 <div className=' md:flex space-x-6'>
                 <div className=" md:flex space-x-6">
-                    {user?.role === 'buyer' ?(
-                        <Link to={'/buyer'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home</Link>
+                    {!user ?(
+                    <Link to={'/'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home<MdHome className='inline-block' /></Link>
                     ):
-                    (<Link to={'/'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home</Link>
+                    user.role === 'buyer' ?(
+                        <Link to={'/buyer'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home<MdHome className='inline-block items-center'/></Link>
+                    ):user.role==="seller" ?
+                    (
+                    <Link to={'/seller'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home<MdHome className='inline-block'/></Link>
+                    ):
+                    (<Link to={'/'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home<MdHome className='inline-block'/></Link>
                     )
                    }
                 {/* <Link to={'/'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Home</Link> */}
@@ -55,11 +67,34 @@ export default function Navbar() {
     
                 
                 <div className="flex items-center space-x-6">
-                 
-                <Link to='/cart' className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Cart {cart.length}</Link>
+                 {!user ?(
+                  <div >
+                    <Link to='/cart' className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded"> <FaShoppingCart className='inline-block'/> {cart.length}</Link>
                 
-                <Link to='/wishlist' className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">WishList {wishlist.length}</Link>
+                    <Link to='/wishlist' className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">WishList {wishlist.length}</Link>
+                  </div>
+                ):
+                 user.role === "buyer" ?(
+                  <div >
+                    <Link to='/cart' className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded"><FaShoppingCart className='inline-block'/> {cart.length}</Link>
                 
+                    <Link to='/wishlist' className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">WishList {wishlist.length}</Link>
+                  </div>
+                ):
+                user.role === "seller" ?(
+                    <div>
+                     
+                      <Link to={'/addproduct'} className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">Add Product</Link>
+                    </div>
+                  ):
+                (
+                    <div >
+                    <Link to='/cart' hidden className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded"><FaShoppingCart className='inline-block'/> {cart.length}</Link>
+                
+                    <Link to='/wishlist' hidden className="text-white text-2xl hover:bg-gray-700 px-3 py-2 rounded">WishList {wishlist.length}</Link>
+                  </div>
+                )
+                 }
 
                 {!isAuthenticated ?(
                    <div id="auth-links" className="flex items-center space-x-4">

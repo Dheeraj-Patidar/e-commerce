@@ -6,9 +6,10 @@ import { useSelector } from 'react-redux'
 
 export default function ProductList() {
    
- 
+  const product=useSelector((state)=>state.addproduct.products)
   const search=useSelector((state)=>state.search.search);
-
+  const allProducts=products.concat(product);
+  console.log(allProducts)
   const [debounceSearch,setDebounceSearch]=useState(search);
   
   useEffect(()=>{
@@ -19,9 +20,9 @@ export default function ProductList() {
   },[search])
 
 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = allProducts.filter((product) => {
     const regex = new RegExp(`${debounceSearch.toLowerCase()}`, 'i');
-    return regex.test(product.title.toLowerCase());
+    return regex.test(product.title);
   });
 
   return (
@@ -29,7 +30,7 @@ export default function ProductList() {
     {!search ?(
     <div className='w-100% grid grid-cols-3 ml-10 mt-20 p-2 '>
 
-     { products.map((product)=>(
+     { allProducts.map((product)=>(
       <Card key={product.id} product={product}/>
       ))
     }

@@ -1,6 +1,9 @@
 import React from 'react'
 import { useDispatch ,useSelector} from 'react-redux'
 import { removeFromWishlist ,addToCartFromWishList} from '../redux/WishListSlice'
+import {toast} from "react-hot-toast"
+
+
 
 export default function WishListPage() {
 
@@ -9,10 +12,12 @@ export default function WishListPage() {
    
     const handleAddToCart=(product)=>{
         dispatch(addToCartFromWishList(product))
+        toast.success("product added to cart")
     }
 
     const handleRemoveFromWishList=(id)=>{
         dispatch(removeFromWishlist(id));
+        toast.success("product removed from wishlist")
     };
 
   return (

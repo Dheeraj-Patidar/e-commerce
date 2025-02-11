@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../redux/AuthSlice';
 import { useNavigate } from 'react-router-dom';
 import users from '../utils/Users';
+import { toast } from 'react-hot-toast';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -17,21 +18,24 @@ export default function LoginPage() {
     const user = users.find(
       (user) => user.email.toLowerCase() === email.toLowerCase() && user.password === password
     );
-
+    
     if (user) {
-      dispatch(login({ email })); 
+      const role=user.role
+      dispatch(login({ email,role })); 
       setError('');
       
       if (user.role === 'buyer') {
-        
+        toast.success('Login Successful!');
         navigate('/buyer');
       } else if (user.role === 'seller') {
+        toast.success('Login Successful!');
         navigate('/seller');
       } else if (user.role === 'admin') {
+        toast.success('Login Successful!');
         navigate('/admin');
       }
     } else {
-      setError('Invalid email or password');
+      toast.error('Invalid email or password, please try again.');
     }
   };
 

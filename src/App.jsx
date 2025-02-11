@@ -9,6 +9,8 @@ import SellerPage from './pages/SellerPage'
 import CartPage from './pages/CartPage'
 import Navbar from './components/Navbar'
 import WishListPage from './pages/WishListPage'
+import AddProductPage from './pages/AddProductPage'
+import { Toaster } from 'react-hot-toast';
 
 // import { AuthProvider } from './contexts/AuthContext'
 // import { CartProvider } from './contexts/CartContext'
@@ -23,6 +25,7 @@ function App() {
 
   return (
     <>
+    <Toaster/>
     <Router>
 {/* <AuthProvider> */}
 {/* <CartProvider> */}
@@ -31,6 +34,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path='/login' element={<LoginPage/>}/>
+        
+        <Route path='/addproduct' element={<AddProductPage/>}/>
         
         <Route path='/buyer' element={
           <BuyerPage/>}
