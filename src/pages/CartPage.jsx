@@ -2,6 +2,7 @@ import React from 'react'
 // import { useCart } from '../contexts/CartContext'
 import { useDispatch ,useSelector } from 'react-redux';
 import { removeFromCart ,updateQuantity } from '../redux/CartSlice';
+import { Link } from 'react-router-dom';
 
 
 
@@ -75,9 +76,9 @@ import { removeFromCart ,updateQuantity } from '../redux/CartSlice';
 
                     <div className="mt-6 flex justify-between items-center">
                         <p className="font-bold text-xl">Total: Rs {calculateTotal()}</p>
-                        <button className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none transition duration-300">
+                        <Link to={'/checkout'} className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none transition duration-300">
                             Proceed to Checkout
-                        </button>
+                        </Link>
                     </div>
                 </>
             )}

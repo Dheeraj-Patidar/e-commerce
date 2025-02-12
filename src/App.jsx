@@ -11,11 +11,12 @@ import Navbar from './components/Navbar'
 import WishListPage from './pages/WishListPage'
 import AddProductPage from './pages/AddProductPage'
 import { Toaster } from 'react-hot-toast';
+import CheckoutPage from './pages/CheckoutPage'
 
 // import { AuthProvider } from './contexts/AuthContext'
 // import { CartProvider } from './contexts/CartContext'
 // import { useDispatch } from 'react-redux';
-// import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 // import { login } from './authSlice';
 
 function App() {
@@ -35,25 +36,26 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path='/login' element={<LoginPage/>}/>
         
-        <Route path='/addproduct' element={<AddProductPage/>}/>
+        <Route path='/addproduct' element={<ProtectedRoute allowedRoles='seller' element={<AddProductPage/>}> </ProtectedRoute>}/>
         
         <Route path='/buyer' element={
-          <BuyerPage/>}
-          />
+          <ProtectedRoute allowedRoles='buyer' element={<BuyerPage/>}>
+          </ProtectedRoute>}/>
         
         <Route path='/cart' element={
-          <CartPage/>}
-         />
-         <Route path='/wishlist' element={
-          <WishListPage/>}
-         />
+          <CartPage/>} />
         
         <Route path='/seller' element={
-          <SellerPage/>
-          }/>
+          <ProtectedRoute allowedRoles='seller' element={<SellerPage/>} >
+          </ProtectedRoute>}/>
 
         <Route path='/admin' element={
-          <AdminPage/>}/>
+          <ProtectedRoute allowedRoles='admin' element={<AdminPage/>}>
+            
+          </ProtectedRoute>}/>
+
+        <Route path='/checkout' element={<ProtectedRoute allowedRoles='buyer' element={<CheckoutPage/>}>  </ProtectedRoute>}/>
+        
 
       </Routes>
 {/* </CartProvider> */}

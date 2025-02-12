@@ -9,7 +9,7 @@ export default function ProductList() {
   const product=useSelector((state)=>state.addproduct.products)
   const search=useSelector((state)=>state.search.search);
   const allProducts=products.concat(product);
-  console.log(allProducts)
+  
   const [debounceSearch,setDebounceSearch]=useState(search);
   
   useEffect(()=>{

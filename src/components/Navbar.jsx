@@ -27,7 +27,7 @@ export default function Navbar() {
 
     const handleLogout = () => {
         dispatch(logout());
-        toast.error("Logout Successfully")
+        toast.success("Logout Successfully")
     };
   
     const handleSearchChange=(e)=>{

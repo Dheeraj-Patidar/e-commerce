@@ -1,19 +1,19 @@
-// import React from 'react';
-// import { Navigate } from 'react-router-dom';
-// // import { useSelector } from 'react-redux';
-// // import {login,selectAuth} from '../redux/AuthSlice';
-// const ProtectedRoute = ({ children, allowedRoles }) => {
-// //   const { isAuthenticated, user } = useSelector((state) => state.auth);
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+// import {login,selectAuth} from '../redux/AuthSlice';
 
-//   if (!login) {
-//      return <Navigate to="/login" />;
-//   }
+const ProtectedRoute = ({ element, allowedRoles }) => {
+    
+  const {user}  = useSelector((state) => state.auth);
 
-//   if (allowedRoles && !allowedRoles.includes(user.role)) {
-//     return <Navigate to="/" />;
-//   }
+  if (!user || user.role !== allowedRoles) {
+    return <Navigate to="/login" />;
+     
+  }
 
-//   return children;
-// };
 
-// export default ProtectedRoute;
+  return element;
+};
+
+export default ProtectedRoute;

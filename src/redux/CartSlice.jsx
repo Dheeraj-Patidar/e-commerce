@@ -27,13 +27,16 @@ const CartSlice=createSlice({
             if(product){
                 product.quantity=Math.max(quantity,1);
             }
+        },
+        clearCart:(state,action)=>{
+            state.cart=[]
         }
         },
         
     }
 )
 
-export const {addToCart,removeFromCart,updateQuantity}=CartSlice.actions;
+export const {addToCart,removeFromCart,updateQuantity,clearCart}=CartSlice.actions;
 
 
 export default CartSlice.reducer
