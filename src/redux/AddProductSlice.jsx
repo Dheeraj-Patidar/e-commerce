@@ -9,7 +9,7 @@ const AddProductSlice=createSlice({
     initialState,
     reducers:{
         addproduct:(state,action)=>{
-          state.products.push(action.payload);
+          state.products.push({id: Date.now(), ...action.payload});
         }
     }
 })

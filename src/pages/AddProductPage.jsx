@@ -1,14 +1,14 @@
 import React from 'react'
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector} from 'react-redux';
 import { addproduct } from '../redux/AddProductSlice';
 import {toast} from "react-hot-toast"
 
 export default function AddProductPage() {
    const dispatch=useDispatch();
-
+   const products=useSelector(state=>state.addproduct.products);
    const [product,setProduct]=useState({
-    image:'',
+    image:null,
     name:'',
     price:'',
     description:'',
@@ -28,9 +28,12 @@ export default function AddProductPage() {
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        dispatch(addproduct(product));
+        const imageUrl=product.image ? URL.createObjectURL(product.image) : '';
+
+        dispatch(addproduct({...product,image:imageUrl}));
         toast.success("Product added successfuly ")
-        setProduct({image:'',name:'',price:'',description:''});
+        setProduct({image:null ,name:'',price:'',description:''});
+        document.getElementById('image').value = '';
     }
 
 
@@ -112,7 +115,44 @@ export default function AddProductPage() {
       </form>
     </div>
     
-    
+
+
+{!products ? (" "):
+(    <div className='flex items-center  grid grid-cols-3 gap-4'>
+    {products.map((product)=>(
+                <div key={product.id} className="max-w-sm mb-10 ml-10 rounded overflow-hidden  transition duration-300 ease-in-out shadow-lg bg-white hover:shadow-black transform hover:scale-105">
+
+                    <img className="w-full h-100 object-cover" src={product.image} alt="Card image" />
+
+
+                    <div className="p-6">
+
+                        <h2 className="text-xl font-semibold text-gray-800">{product.title}</h2>
+
+
+                        <p className="text-gray-600 mt-2">{product.description}</p>
+
+
+                        <p className="text-lg font-bold text-gray-900 mt-4">Rs {product.price}</p>
+
+                        <div className="mt-6 flex space-x-4">
+                            
+                            <button  className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                Edit
+                            </button>
+                            
+                            <button  className="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                                Delete
+                            </button>
+                            
+                        </div>
+                    </div>
+                </div>
+    ))}
+            </div>
+)
+
+}
     </>
   )
 }
