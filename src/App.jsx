@@ -42,9 +42,9 @@ function App() {
           <ProtectedRoute allowedRoles='buyer' element={<BuyerPage/>}>
           </ProtectedRoute>}/>
         
-        <Route path='/cart' element={
-          <CartPage/>} />
-        
+        <Route path='/cart' element={<CartPage/>} />
+        <Route path='/wishlist' element={<WishListPage/>} />
+
         <Route path='/seller' element={
           <ProtectedRoute allowedRoles='seller' element={<SellerPage/>} >
           </ProtectedRoute>}/>
@@ -53,8 +53,8 @@ function App() {
           <ProtectedRoute allowedRoles='admin' element={<AdminPage/>}>
             
           </ProtectedRoute>}/>
-
-        <Route path='/checkout' element={<ProtectedRoute allowedRoles='buyer' element={<CheckoutPage/>}>  </ProtectedRoute>}/>
+        <Route path='/checkout' element={<ProtectedRoute allowedRoles='buyer' 
+          element={<CheckoutPage/>}>  </ProtectedRoute>}/>
         
 
       </Routes>
