@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { displayusers, deleteuser } from '../redux/UserDetailSlice';
 
@@ -9,8 +9,9 @@ export default function AdminPage() {
   
     dispatch(displayusers());
 
-  const handleDelete = (id) => {
-    dispatch(deleteuser(id));
+  const handleDelete = (user) => {
+    dispatch(deleteuser(user));
+   
   };
 
   return (

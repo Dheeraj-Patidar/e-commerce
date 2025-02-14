@@ -10,6 +10,9 @@ import {toast} from "react-hot-toast"
 export default function Card({ product }) {
    
     // const {addToCart}=useCart();
+
+
+    
     const dispatch=useDispatch();
 
    const handleAddToCart=()=>{

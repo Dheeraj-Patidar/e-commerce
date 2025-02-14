@@ -1,7 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
 import products from '../utils/Products';
 const initialState = {
-    filter: ''
+    filter: {
+        pricerange: '',
+        category: '',
+    }
 }
 
 const FilterSlice = createSlice({
@@ -10,14 +13,11 @@ const FilterSlice = createSlice({
     initialState,
     reducers: {
         filterprice: (state, action) => {
-            state.action=products.filter((product)=>{
-                if(action.payload >100 && action.payload<500){
-                return product.price>=100 && product.price<=500;
-                }
-            })
+            const {min , max} = action.payload;
+            state.filter.pricerange= {min, max};
         },
-        filterbrand: (state, action) => {
-            state.filter = action.payload;
+        filtercategory: (state, action) => {
+            state.filter.category = action.payload;
         }
 
     }
@@ -25,5 +25,14 @@ const FilterSlice = createSlice({
 });
 
 
-export const { filterprice, filterbrand } = FilterSlice.actions;
+export const { filterprice, filtercategory } = FilterSlice.actions;
+
+export const selectFilterProducts = (state) => {
+    const { pricerange, category } = state.filter;
+    return products.filter((product) => {
+        const priceMatch = pricerange ? product.price >= pricerange.min && product.price <= pricerange.max : true;
+        const categoryMatch = category ? product.title === category : true;
+        return priceMatch && categoryMatch;
+    });
+}
 export default FilterSlice.reducer;
